@@ -1,8 +1,4 @@
 class WordFrequency:
-
-    # word: str
-    # frequency: int
-
     def __init__(self, word: str, frequency: int):
         """
         inits
@@ -19,6 +15,7 @@ class WordFrequency:
         return self._frequency
 
     def __lt__(self, other):
+        # for bisect insort
         if self._frequency != other.frequency:
             return self.frequency > other.frequency
         else:
@@ -28,6 +25,7 @@ class WordFrequency:
         return f"({self._word}, {self._frequency})"
 
     def __iter__(self):
+        # to convert into dict
         yield self._word
         yield self._frequency
 

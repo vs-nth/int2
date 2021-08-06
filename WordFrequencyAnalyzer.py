@@ -7,9 +7,8 @@ import collections
 
 class WordFrequencyAnalyzer:
 
-    # word: str
-    # frequency: int
-    word_count_hashmap: dict
+    def __init__(self):
+        self.word_count_hashmap = dict
 
     @staticmethod
     def clean_text(text: str) -> list:
