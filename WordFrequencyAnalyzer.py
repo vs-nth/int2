@@ -19,7 +19,7 @@ class WordFrequencyAnalyzer:
     @staticmethod
     def clean_text(text: str) -> list:
         text = re.findall('[a-zA-Z]*', text)  # regex to extract only words [a-zA-Z]*
-        text = [_ for _ in text if _ != '']  # remove empty spaces
+        text = [_.lower() for _ in text if _ != '']  # remove empty spaces
         return text
 
     # make this function calculate all, make the bottom one return the max value?
@@ -32,22 +32,11 @@ class WordFrequencyAnalyzer:
         :param text: the text in which to count the words
         :return: max_count: highest frequency of occurrence
         """
-        # TODO change to collections.counter after clean_text
-        count = {}
-        max_count = 0
         # define word using regex - > extract [a-zA-Z]* , ignore rest. check hashmap
         # change these into a function to extract words
         text = self.clean_text(text)
-        for word in text:
-            word = word.lower()
-            if word in count:
-                count[word] += 1
-                if max_count < count[word]:
-                    max_count = count[word]
-            else:
-                count[word] = 1
-        self.word_count_hashmap = count
-        return max_count
+        self.word_count_hashmap = collections.Counter(text)
+        return max(self.word_count_hashmap.values())
 
     def calculate_frequency_for_word(self, text: str, word: str) -> int:
         """
