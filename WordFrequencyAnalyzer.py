@@ -2,6 +2,7 @@ from typing import List
 from WordFrequency import WordFrequency
 import re
 import bisect
+import collections
 
 
 class WordFrequencyAnalyzer:
@@ -10,11 +11,20 @@ class WordFrequencyAnalyzer:
     # frequency: int
     word_count_hashmap: dict
 
+    # TODO CANNOT INSERT IN SORTED ORDER IF VALUES ARE NOT FULLY COUNTED YET
+    #  create your own counter insert into dict in sorted order itself -> use popitem to evict last (LIFO)
+    #  this way you can insert in sorted order into dict itself according to variables, and then when retrieving
+    #  you can remove from last .
+
     @staticmethod
     def clean_text(text: str) -> list:
         text = re.findall('[a-zA-Z]*', text)  # regex to extract only words [a-zA-Z]*
         text = [_ for _ in text if _ != '']  # remove empty spaces
         return text
+
+    # make this function calculate all, make the bottom one return the max value?
+    def calculate_all_frequency(self):
+        pass
 
     def calculate_highest_frequency(self, text: str) -> int:
         """
@@ -82,36 +92,13 @@ class WordFrequencyAnalyzer:
 
 if __name__ == "__main__":
     wew = WordFrequencyAnalyzer()
-    wew.calculate_most_frequent_n_words(text="The sun shines over the lake", n=3)
-    print(wew)
+    f = wew.calculate_most_frequent_n_words(text="The sun shines over the lake", n=3)
+    print(f)
+    print(dict(f))
+    f = wew.calculate_most_frequent_n_words(text="hi this is My m2y 2my2 NaMe name NAME ih2hi kusu kundi,tqw (awqe) (qwerttty) awqe", n=5)
+    print(f)
 
 
-        # dict_of_words = {}
-        # dict_of_counts = {}  # hashmap counts to lists of matched words that have same frequency, sort the list?
-        #
-        # for word in text:
-        #     word = word.lower()
-        #     if word in dict_of_words:
-        #         dict_of_words[word] += 1
-        #         if dict_of_words[word] in dict_of_counts:
-        #             bisect.insort(dict_of_counts[dict_of_words[word]], word)  # add word in sorted order
-        #         else:
-        #             dict_of_counts[dict_of_words[word]] = [word]
-        #     else:
-        #         dict_of_words[word] = 1
-        #         if dict_of_words[word] not in dict_of_counts:
-        #             dict_of_counts[dict_of_words[word]] = [word]
-        #         else:
-        #             dict_of_counts[dict_of_words[word]].append(word)
-        #
-        # print(dict_of_counts, dict_of_words)
-        # count = 0
-        # while count < n:
-        #     val = max(dict_of_counts)
-        #     for i, v in enumerate(dict_of_counts[val]):
-        #         most_frequent_n_words.append(WordFrequency(v, val))
-        #         count += 1
-        #         dict_of_counts[val].pop(i)
-        #     dict_of_counts.pop(val)
+
 
 

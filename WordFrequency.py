@@ -22,7 +22,11 @@ class WordFrequency:
         return self.frequency < other.frequency
 
     def __repr__(self):
-        return f"{self._word}: {self._frequency}"
+        return f"({self._word}, {self._frequency})"
+
+    def __iter__(self):
+        yield self._word
+        yield self._frequency
 
     word = property(get_word)
     frequency = property(get_frequency)
