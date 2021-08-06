@@ -31,6 +31,7 @@ class WordFrequencyAnalyzer:
         # change these into a function to extract words
         text = self.clean_text(text)
         for word in text:
+            word = word.lower()
             if word in count:
                 count[word] += 1
                 if max_count < count[word]:
@@ -61,22 +62,28 @@ class WordFrequencyAnalyzer:
         most_frequent_n_words = []
         count = 0
         while count < n:
-            val = max(self.word_count_hashmap)
-            # for i in [k for k, v in self.word_count_hashmap.items() if v == val]:
-            #     count += 1
+            val = max(self.word_count_hashmap.values())
             word_list_with_val_freq = []
 
+            # insert all words with same frequency into a list in sorted manner
             for k, v in self.word_count_hashmap.items():
                 if v == val:
                     bisect.insort(word_list_with_val_freq, k)
-            for i in word_list_with_val_freq and count < n:
-                most_frequent_n_words.append(WordFrequency(i, val))
-                count += 1
-                self.word_count_hashmap.pop(i)
-            # map(self.word_count_hashmap.pop, word_list_with_val_freq)
-            # lambda x: self.word_count_hashmap.pop(x) for x in word_list_with_val_freq
+
+            # create WordFrequency Object for each word, and remove that word from dict
+            for i in word_list_with_val_freq:
+                if count < n:
+                    most_frequent_n_words.append(WordFrequency(i, val))
+                    count += 1
+                    self.word_count_hashmap.pop(i)
+
         return most_frequent_n_words
 
+
+if __name__ == "__main__":
+    wew = WordFrequencyAnalyzer()
+    wew.calculate_most_frequent_n_words(text="The sun shines over the lake", n=3)
+    print(wew)
 
 
         # dict_of_words = {}
@@ -107,10 +114,4 @@ class WordFrequencyAnalyzer:
         #         dict_of_counts[val].pop(i)
         #     dict_of_counts.pop(val)
 
-
-
-
-if __name__ == "__main__":
-    wew = WordFrequencyAnalyzer.calculate_most_frequent_n_words(text="The sun shines over the lake", n=3)
-    print(wew)
 
