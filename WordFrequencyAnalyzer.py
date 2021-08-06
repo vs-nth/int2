@@ -23,19 +23,23 @@ class WordFrequencyAnalyzer:
         return text
 
     # make this function calculate all, make the bottom one return the max value?
-    def calculate_all_frequency(self):
-        pass
+    def calculate_all_frequency(self, text: str) -> None:
+        """
+        calculates the frequency of the given text
+        :param text: text in which frequency is to be calculated
+        """
+        text = self.clean_text(text)
+        self.word_count_hashmap = collections.Counter(text)
 
     def calculate_highest_frequency(self, text: str) -> int:
         """
-        Returns the highest frequency of occurrence of words
+        Returns the highest frequency in text
         :param text: the text in which to count the words
-        :return: max_count: highest frequency of occurrence
+        :return: highest frequency of occurrence
         """
         # define word using regex - > extract [a-zA-Z]* , ignore rest. check hashmap
         # change these into a function to extract words
-        text = self.clean_text(text)
-        self.word_count_hashmap = collections.Counter(text)
+        self.calculate_all_frequency(text)
         return max(self.word_count_hashmap.values())
 
     def calculate_frequency_for_word(self, text: str, word: str) -> int:
@@ -55,7 +59,7 @@ class WordFrequencyAnalyzer:
         :param n: n words to return
         :return: list[wordFrequency] returns a list with n WordFrequency objects
         """
-        _ = self.calculate_highest_frequency(text)  # maybe use the _ instead of wasting one max call using a do while loop
+        self.calculate_all_frequency(text)  # maybe use the _ instead of wasting one max call using a do while loop
         most_frequent_n_words = []
         count = 0
         while count < n:
