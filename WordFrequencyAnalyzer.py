@@ -11,18 +11,12 @@ class WordFrequencyAnalyzer:
     # frequency: int
     word_count_hashmap: dict
 
-    # TODO CANNOT INSERT IN SORTED ORDER IF VALUES ARE NOT FULLY COUNTED YET
-    #  create your own counter insert into dict in sorted order itself -> use popitem to evict last (LIFO)
-    #  this way you can insert in sorted order into dict itself according to variables, and then when retrieving
-    #  you can remove from last .
-
     @staticmethod
     def clean_text(text: str) -> list:
         text = re.findall('[a-zA-Z]*', text)  # regex to extract only words [a-zA-Z]*
         text = [_.lower() for _ in text if _ != '']  # remove empty spaces
         return text
 
-    # make this function calculate all, make the bottom one return the max value?
     def calculate_all_frequency(self, text: str) -> None:
         """
         calculates the frequency of the given text
@@ -64,7 +58,6 @@ class WordFrequencyAnalyzer:
         count = 0
         while count < n:
             val = max(self.word_count_hashmap.values())
-            # insert all words with same frequency into a list in sorted manner
             for k in list(self.word_count_hashmap):
                 if self.word_count_hashmap[k] == val:
                     bisect.insort(most_frequent_n_words, WordFrequency(k, val))
@@ -82,10 +75,19 @@ if __name__ == "__main__":
     print(f)
     assert dict(f) == {"the": 2, "lake" : 1, "over" : 1}
     print('Passed 1')
+
     f = wew.calculate_most_frequent_n_words(text="hi this is My m2y 2my2 NaMe name NAME ih2hi kusu kundi,tqw (awqe) (qwerttty) awqe", n=5)
     print(f)
     assert dict(f) == dict([('name', 3), ('awqe', 2), ('hi', 2), ('my', 2), ('ih', 1)])
     print('Passed 2')
+
+    f = wew.calculate_highest_frequency(text="The sun shines over the lake")
+    assert f == 2
+    print('Passed 3')
+
+    f = wew.calculate_frequency_for_word(text="The sun shines over the lake", word='sun')
+    assert f == 1
+    print('Passed 4')
 
 
 
