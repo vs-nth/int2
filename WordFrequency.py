@@ -19,7 +19,10 @@ class WordFrequency:
         return self._frequency
 
     def __lt__(self, other):
-        return self.frequency < other.frequency
+        if self._frequency != other.frequency:
+            return self.frequency > other.frequency
+        else:
+            return self._word < other.word
 
     def __repr__(self):
         return f"({self._word}, {self._frequency})"

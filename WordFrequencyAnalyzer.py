@@ -32,8 +32,6 @@ class WordFrequencyAnalyzer:
         :param text: the text in which to count the words
         :return: max_count: highest frequency of occurrence
         """
-        # TODO make the count into WordFrequency Object? or something?  - reverse hashmap - append subsequent strings with same value into str? idk
-
         # TODO change to collections.counter after clean_text
         count = {}
         max_count = 0
@@ -73,20 +71,15 @@ class WordFrequencyAnalyzer:
         count = 0
         while count < n:
             val = max(self.word_count_hashmap.values())
-            word_list_with_val_freq = []
-
             # insert all words with same frequency into a list in sorted manner
-            for k, v in self.word_count_hashmap.items():
-                if v == val:
-                    bisect.insort(word_list_with_val_freq, k)
-
-            # create WordFrequency Object for each word, and remove that word from dict
-            for i in word_list_with_val_freq:
-                if count < n:
-                    most_frequent_n_words.append(WordFrequency(i, val))
+            for k in list(self.word_count_hashmap):
+                if self.word_count_hashmap[k] == val:
+                    bisect.insort(most_frequent_n_words, WordFrequency(k, val))
                     count += 1
-                    self.word_count_hashmap.pop(i)
-
+                    self.word_count_hashmap.pop(k)
+                    if count > n:
+                        most_frequent_n_words.pop()
+                        count -= 1
         return most_frequent_n_words
 
 
@@ -94,10 +87,12 @@ if __name__ == "__main__":
     wew = WordFrequencyAnalyzer()
     f = wew.calculate_most_frequent_n_words(text="The sun shines over the lake", n=3)
     print(f)
-    print(dict(f))
+    assert dict(f) == {"the": 2, "lake" : 1, "over" : 1}
+    print('Passed 1')
     f = wew.calculate_most_frequent_n_words(text="hi this is My m2y 2my2 NaMe name NAME ih2hi kusu kundi,tqw (awqe) (qwerttty) awqe", n=5)
     print(f)
-
+    assert dict(f) == dict([('name', 3), ('awqe', 2), ('hi', 2), ('my', 2), ('ih', 1)])
+    print('Passed 2')
 
 
 
