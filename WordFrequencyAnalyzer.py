@@ -12,9 +12,9 @@ class WordFrequencyAnalyzer:
 
     @staticmethod
     def clean_text(text: str) -> list:
-        text = re.findall('[a-zA-Z]*', text)  # regex to extract only words [a-zA-Z]*
-        text = [_.lower() for _ in text if _ != '']  # remove empty spaces
-        return text
+        text = re.findall('[a-zA-Z]*', text)  # regex to extract only words [a-zA-Z]* TODO instead of * , + maybe? * implies 0 times occuring too
+        text_list = [_.lower() for _ in text if _ != '']  # remove empty spaces
+        return text_list
 
     def calculate_all_frequency(self, text: str) -> None:
         """
@@ -23,6 +23,17 @@ class WordFrequencyAnalyzer:
         """
         text = self.clean_text(text)
         self.word_count_hashmap = collections.Counter(text)
+
+        # If not allowed to use inbuilt function - the above line can be replaced with these:
+        # count = {}
+        # for word in text:
+        #     word = word.lower()
+        #     if word in count:
+        #         count[word] += 1
+        #     else:
+        #       count[word] = 1
+        # self.word_count_hashmap = count
+
 
     def calculate_highest_frequency(self, text: str) -> int:
         """
@@ -34,6 +45,7 @@ class WordFrequencyAnalyzer:
         # change these into a function to extract words
         self.calculate_all_frequency(text)
         return max(self.word_count_hashmap.values())
+    
 
     def calculate_frequency_for_word(self, text: str, word: str) -> int:
         """
@@ -55,6 +67,7 @@ class WordFrequencyAnalyzer:
         self.calculate_all_frequency(text)  # maybe use the _ instead of wasting one max call using a do while loop
         most_frequent_n_words = []
         count = 0
+
         while count < n:
             val = max(self.word_count_hashmap.values())
             for k in list(self.word_count_hashmap):
