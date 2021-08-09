@@ -84,26 +84,5 @@ class WordFrequencyAnalyzer:
         return most_frequent_n_words
 
 
-# if __name__ == "__main__":
-#     wew = WordFrequencyAnalyzer()
-#     f = wew.calculate_most_frequent_n_words(text="The sun shines over the lake", n=3)
-#     print(f)
-#     assert dict(f) == {"the": 2, "lake" : 1, "over" : 1}
-#     print('Passed 1')
-#
-#     f = wew.calculate_most_frequent_n_words(text="hi this is My m2y 2my2 NaMe name NAME ih2hi kusu kundi,tqw (awqe) (qwerttty) awqe", n=5)
-#     print(f)
-#     assert dict(f) == dict([('name', 3), ('awqe', 2), ('hi', 2), ('my', 2), ('ih', 1)])
-#     print('Passed 2')
-#
-#     f = wew.calculate_highest_frequency(text="The sun shines over the lake")
-#     assert f == 2
-#     print('Passed 3')
-#
-#     f = wew.calculate_frequency_for_word(text="The sun shines over the lake", word='sun')
-#     assert f == 1
-#     print('Passed 4')
-
-
 
 
