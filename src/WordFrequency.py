@@ -14,12 +14,10 @@ class WordFrequency:
     def get_frequency(self):
         return self._frequency
 
-    def __lt__(self, other):
-        # for bisect insort
-        if self._frequency != other.frequency:
-            return self.frequency > other.frequency
-        else:
-            return self._word < other.word
+    def __eq__(self, other):
+        if self.word == other.word and self.frequency == other.frequency:
+            return True
+        return False
 
     def __repr__(self):
         return f"({self._word}, {self._frequency})"
