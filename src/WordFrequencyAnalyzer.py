@@ -39,8 +39,6 @@ class WordFrequencyAnalyzer:
         :param text: the text in which to count the words
         :return: highest frequency of occurrence
         """
-        # define word using regex - > extract [a-zA-Z]* , ignore rest. check hashmap
-        # change these into a function to extract words
         self.calculate_all_frequency(text)
         return max(self.word_count_hashmap.values())
 
@@ -52,7 +50,7 @@ class WordFrequencyAnalyzer:
         :return: word_count: the frequency of occurrence of the word in the text
         """
         text = self.clean_text(text)
-        return text.count(word)  # verify this -> check if word is only alphabetic
+        return text.count(word)
 
     def calculate_most_frequent_n_words(self, text: str, n: int) -> List[WordFrequency]:
         """
@@ -61,7 +59,7 @@ class WordFrequencyAnalyzer:
         :param n: n words to return
         :return: list[wordFrequency] returns a list with n WordFrequency objects
         """
-        self.calculate_all_frequency(text)  # maybe use the _ instead of wasting one max call using a do while loop
+        self.calculate_all_frequency(text)
         most_frequent_n_words = []
         reverse_word_count_hashmap = {}
         count = 0
