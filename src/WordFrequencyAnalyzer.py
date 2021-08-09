@@ -12,8 +12,7 @@ class WordFrequencyAnalyzer:
 
     @staticmethod
     def clean_text(text: str) -> list:
-        text = re.findall('[a-zA-Z]+', text)  # regex to extract only words [a-zA-Z]* TODO instead of * , + maybe? * implies 0 times occuring too
-        #text_list = [_.lower() for _ in text if _ != '']  # remove empty spaces
+        text = re.findall('[a-zA-Z]+', text)  # regex to extract only words [a-zA-Z]+
         return [_.lower() for _ in text]
 
     def calculate_all_frequency(self, text: str) -> None:
