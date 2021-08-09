@@ -10,7 +10,7 @@ Interview question - see attached doc
     
 1. Install packages 
     
-    `pip install < requirements.txt`
+    `pip install -r requirements.txt`
     
 2. Run tests 
 
