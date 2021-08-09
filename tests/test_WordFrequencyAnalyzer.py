@@ -1,7 +1,7 @@
 from unittest import mock
 
 from src import WordFrequencyAnalyzer, WordFrequency
-import src
+
 
 class TestWordFrequencyAnalyzer:
 
